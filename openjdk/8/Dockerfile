@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-stretch
+FROM openjdk:8-jdk-alpine
 
 LABEL MAINTAINER="张雄<zhangxiong@wondersgroup.com>"
 
