@@ -6,7 +6,7 @@ on:
       - 'openjdk/8/Dockerfile'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/openjdk:8-jdk-stretch
+  DOCKER_HUB_TAG: xuwenkeke/openjdk:8-jdk-alpine
 
 jobs:
   build:
