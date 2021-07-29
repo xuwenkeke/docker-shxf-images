@@ -1,10 +1,10 @@
-name: Builder
+name: Builder ( linux/arm64/v8 )
 on:
   push:
     branches: [ main ]
     paths:
       - 'builder/centos8/Dockerfile'
-      - '.github/workflows/builder-centos8.yml'
+      - '.github/workflows/builder-centos8_arm64v8.yml'
 
 env:
   DOCKER_HUB_TAG: xuwenkeke/builder:centos8.3.2011
@@ -37,8 +37,9 @@ jobs:
         run: |
           ls -lh . 
           ls -lh files
+          du -sh files
       -
-        name: Build and push ( linux/arm64/v8 )
+        name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
