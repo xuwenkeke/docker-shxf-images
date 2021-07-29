@@ -11,13 +11,38 @@ RUN set -ex \
 
 # Change yum repositry
 RUN set -ex \
-  && mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup \
-  && curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo \
-  && sed -i 's/mirrors.cloud.aliyuncs.com/mirrors.aliyun.com/g' /etc/yum.repos.d/CentOS-Base.repo \
-  && yum clean all && yum makecache
+  && ls -lh /etc/yum.repos.d \
+  && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
+  && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
+  && yum clean all && yum makecache \
+  && yum install -y git wget \
+  && yum clean all \
+  && rm -rf /var/cache/yum/*
 
-# Install Git 
+# Install JDK
+ARG JDK_TAR=../../files/jdk-8u301-linux-`arch`.tar.gz
+COPY ${JDK_TAR} /usr/local/java/jdk.tar.gz
 RUN set -ex \
-  && yum install -y git \
-  && git -version
+  && tar -zxf /usr/local/java/jdk.tar.gz -C /usr/local/java/ \
+  && cd /usr/local/java \
+  && ls -lh \
+  && ln -s /usr/local/java/jdk1.8.0_301 default \
+  && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' default/jre/lib/security/java.security \
+  && rm /usr/local/java/jdk.tar.gz
 
+ENV JAVA_HOME=/usr/local/java/default
+ENV JAVA_BIN=${JAVA_HOME}/bin
+ENV PATH=$PATH:$JAVA_BIN
+ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+# Install Maven
+ARG MAVEN_VERSION=3.6.3
+RUN set -ex \
+  && mkdir -vp /usr/local/maven \
+  && curl -o /usr/local/maven/maven.tar.gz https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+  && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
+  && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
+  && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
+  && rm /usr/local/maven/maven.tar.gz
+
+ENV MAVEN_HOME=/usr/local/maven/default
