@@ -20,7 +20,7 @@ RUN set -ex \
   && rm -rf /var/cache/yum/*
 
 # Install JDK
-ARG JDK_TAR=../../files/jdk-8u301-linux-aarch64.tar
+ARG JDK_TAR=/files/jdk-8u301-linux-aarch64.tar
 COPY ${JDK_TAR} /usr/local/java/jdk.tar.gz
 RUN set -ex \
   && tar -zxf /usr/local/java/jdk.tar.gz -C /usr/local/java/ \
