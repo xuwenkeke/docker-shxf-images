@@ -1,7 +1,5 @@
 FROM openjdk:8-jdk-alpine
 
-LABEL MAINTAINER="张雄<zhangxiong@wondersgroup.com>"
-
 # Set timezone
 ENV LANG en_US.UTF-8
 ENV TIMEZONE Asia/Shanghai
