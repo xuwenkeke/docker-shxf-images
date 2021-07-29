@@ -1,4 +1,4 @@
-name: openjdk8
+name: OpenJDK8
 on:
   push:
     branches: [ main ]

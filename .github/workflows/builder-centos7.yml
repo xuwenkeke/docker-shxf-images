@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./openjdk/8/Dockerfile
+          file: ./builder/centos7/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm,linux/arm64
           tags: ${{ env.DOCKER_HUB_TAG }}
@@ -49,4 +49,4 @@ jobs:
         name: Test
         run: |
           docker pull ${{ env.DOCKER_HUB_TAG }}
-          docker run --rm ${{ env.DOCKER_HUB_TAG }} java -version
+          docker run --rm ${{ env.DOCKER_HUB_TAG }} git -version
