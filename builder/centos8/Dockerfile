@@ -35,10 +35,9 @@ ENV PATH=$PATH:$JAVA_BIN
 ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Install Maven
-ARG MAVEN_VERSION=3.6.3
+ARG MAVEN_VERSION=3.6.2
+COPY ./files/apache-maven-3.6.3-bin.tar.gz /usr/local/maven/maven.tar.gz
 RUN set -ex \
-  && mkdir -vp /usr/local/maven \
-  && curl -o /usr/local/maven/maven.tar.gz https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
   && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
   && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
   && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
@@ -57,8 +56,33 @@ RUN ARCH=$NODE_ARCH \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz
 
+# Install yarn
+# Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
+ENV YARN_VERSION 1.17.3
+COPY ./files/yarn-v${YARN_VERSION}.tar.gz /usr/local/yarn/
+RUN set -ex \
+  && cd /usr/local/yarn/ && tar -xzf yarn-v$YARN_VERSION.tar.gz \
+  && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
+  && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
+  && rm yarn-v$YARN_VERSION.tar.gz \
+  && yarn config set disable-self-update-check true \
+  && yarn global add gulp grunt requirejs
+
 # Test
 RUN set -ex \
   && java -version \
   && node -v \
-  && mvn -v 
+  && mvn -v  \
+  && yarn --version
+
+# Create User
+ARG RUN_USER=xf
+RUN set -ex \
+  && groupadd -r ${RUN_USER} --gid 800 \
+  && useradd -r --gid ${RUN_USER} --uid 800 --shell /bin/bash ${RUN_USER} \
+  && mkdir -vp /home/${RUN_USER} \
+  && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}  
+
+VOLUME [ "/deploy" ]
+USER ${RUN_USER}
+WORKDIR /deploy  
