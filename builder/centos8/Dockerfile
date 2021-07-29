@@ -56,6 +56,13 @@ RUN ARCH=$NODE_ARCH \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz
 
+# Test
+RUN set -ex \
+  && java -version \
+  && node -v \
+  && mvn -v \
+  && echo $(arch)
+
 # Install yarn
 # Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
 ENV YARN_VERSION 1.17.3
