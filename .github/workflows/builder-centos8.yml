@@ -36,6 +36,7 @@ jobs:
         name: Test
         run: |
           ls -lh . 
+          ls -lh files
       -
         name: Build and push ( linux/arm64/v8 )
         id: docker_build
