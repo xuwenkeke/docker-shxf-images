@@ -27,8 +27,7 @@ RUN set -ex \
   && ls -lh \
   && ln -s /usr/local/java/jdk1.8.0_301 default \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' default/jre/lib/security/java.security \
-  && rm /usr/local/java/jdk.tar.gz \
-  && java -version
+  && rm /usr/local/java/jdk.tar.gz
 
 ENV JAVA_HOME=/usr/local/java/default
 ENV JAVA_BIN=${JAVA_HOME}/bin
@@ -43,8 +42,7 @@ RUN set -ex \
   && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
   && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
   && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
-  && rm /usr/local/maven/maven.tar.gz \
-  && mvn -v
+  && rm /usr/local/maven/maven.tar.gz
 
 ENV MAVEN_HOME=/usr/local/maven/default
 
@@ -58,3 +56,9 @@ RUN ARCH=$NODE_ARCH \
   && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz
+
+# Test
+RUN set -ex \
+  && java -version \
+  && node -v \
+  && mvn -v 
