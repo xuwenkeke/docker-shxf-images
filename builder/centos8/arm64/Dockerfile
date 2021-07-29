@@ -36,15 +36,17 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Install Maven
 ARG MAVEN_VERSION=3.6.3
+ARG MAVEN_INSTALL_DIR=/usr/local/maven
 RUN set -ex \
-  && mkdir -vp /usr/local/maven \
+  && mkdir -vp ${MAVEN_INSTALL_DIR} \
   && curl -o /maven.tar.gz "https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
-  && tar -zxf /maven.tar.gz -C /user/local/maven/ \
-  && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
-  && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
+  && tar -zxf /maven.tar.gz -C ${MAVEN_INSTALL_DIR} --strip-components=1 --no-same-owner \
+  && ls -lh ${MAVEN_INSTALL_DIR} \
+  && ln -s ${MAVEN_INSTALL_DIR}/apache-maven-${MAVEN_VERSION} default \
+  && ln -s ${MAVEN_INSTALL_DIR}/default/bin/mvn /usr/bin/mvn \
   && rm -v /maven.tar.gz
 
-ENV MAVEN_HOME=/usr/local/maven/default
+ENV MAVEN_HOME=${MAVEN_INSTALL_DIR}/default
 
 # Install nodejs
 # Download: https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz
