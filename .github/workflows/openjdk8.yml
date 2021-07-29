@@ -48,4 +48,5 @@ jobs:
       -
         name: Test
         run: |
-          docker run --platform linux/arm64 --rm ${{ env.DOCKER_HUB_TAG }} java -version
+          docker pull ${{ env.DOCKER_HUB_TAG }}
+          docker run --rm ${{ env.DOCKER_HUB_TAG }} java -version
