@@ -27,7 +27,8 @@ RUN set -ex \
   && ls -lh \
   && ln -s /usr/local/java/jdk1.8.0_301 default \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' default/jre/lib/security/java.security \
-  && rm /usr/local/java/jdk.tar.gz
+  && rm /usr/local/java/jdk.tar.gz \
+  && java -version
 
 ENV JAVA_HOME=/usr/local/java/default
 ENV JAVA_BIN=${JAVA_HOME}/bin
@@ -42,6 +43,18 @@ RUN set -ex \
   && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
   && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
   && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
-  && rm /usr/local/maven/maven.tar.gz
+  && rm /usr/local/maven/maven.tar.gz \
+  && mvn -v
 
 ENV MAVEN_HOME=/usr/local/maven/default
+
+# Install nodejs
+# Download: https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz
+ARG NODE_VERSION=6.10.2
+ARG NODE_ARCH=arm64
+COPY ./files/node-v${NODE_VERSION}-linux-arm64.tar.xz /
+RUN ARCH=$NODE_ARCH \
+  && set -ex \
+  && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
+  && rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz
