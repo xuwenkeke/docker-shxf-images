@@ -35,7 +35,7 @@ ENV PATH=$PATH:$JAVA_BIN
 ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Install Maven
-ARG MAVEN_VERSION=3.6.2
+ARG MAVEN_VERSION=3.6.3
 COPY ./files/apache-maven-3.6.3-bin.tar.gz /usr/local/maven/maven.tar.gz
 RUN set -ex \
   && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
