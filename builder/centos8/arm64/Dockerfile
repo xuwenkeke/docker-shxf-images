@@ -39,7 +39,7 @@ ARG MAVEN_VERSION=3.6.3
 RUN set -ex \
   && mkdir -vp /usr/local/maven \
   && curl -o /maven.tar.gz "https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
-  && tar -zxf /usr/local/maven/maven.tar.gz -C /user/local/maven/ \
+  && tar -zxf /maven.tar.gz -C /user/local/maven/ \
   && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
   && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
   && rm -v /maven.tar.gz
@@ -63,7 +63,7 @@ ENV YARN_VERSION 1.22.5
 RUN set -ex \
   && curl -o /yarn.tar.gz "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
   && mkdir -vp /usr/local/yarn/ \
-  && tar -xzf yarn.tar.gz -C /usr/local/yarn \
+  && tar -xzf /yarn.tar.gz -C /usr/local/yarn \
   && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
   && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
   && rm -v /yarn.tar.gz \
