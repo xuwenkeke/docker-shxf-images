@@ -12,8 +12,8 @@ RUN set -ex \
 # Change yum repositry
 RUN set -ex \
   && ls -lh /etc/yum.repos.d \
-  #&& mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
-  #&& curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
+  && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
+  && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
   && yum makecache \
   && yum install -y git wget \
   && yum clean all \
@@ -58,7 +58,7 @@ RUN ARCH=$NODE_ARCH \
 
 # Install yarn
 # Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
-ENV YARN_VERSION 1.17.3
+ENV YARN_VERSION 1.22.5
 COPY ./files/yarn-v${YARN_VERSION}.tar.gz /usr/local/yarn/
 RUN set -ex \
   && cd /usr/local/yarn/ && tar -xzf yarn-v$YARN_VERSION.tar.gz \
@@ -66,7 +66,7 @@ RUN set -ex \
   && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz \
   && yarn config set disable-self-update-check true \
-  && yarn --verbose global add gulp grunt requirejs
+  && yarn global add gulp grunt requirejs
 
 # Test
 RUN set -ex \
@@ -75,7 +75,10 @@ RUN set -ex \
   && node -v \
   && npm -v \
   && mvn -v  \
-  && yarn --version
+  && yarn --version \
+  && gulp -v \
+  && grunt -h \
+  && r.js -v
 
 # Create User
 ARG RUN_USER=xf
