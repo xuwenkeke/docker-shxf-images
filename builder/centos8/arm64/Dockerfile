@@ -91,3 +91,4 @@ RUN set -ex \
 VOLUME [ "/deploy" ]
 USER ${RUN_USER}
 WORKDIR /deploy  
+CMD ["/bin/bash"]
