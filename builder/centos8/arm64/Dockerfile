@@ -36,12 +36,13 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Install Maven
 ARG MAVEN_VERSION=3.6.3
-COPY ./files/apache-maven-${MAVEN_VERSION}-bin.tar.gz /usr/local/maven/maven.tar.gz
 RUN set -ex \
-  && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
+  && mkdir -vp /usr/local/maven \
+  && curl -o /maven.tar.gz "https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+  && tar -zxf /usr/local/maven/maven.tar.gz -C /user/local/maven/ \
   && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
   && ln -s /usr/local/maven/default/bin/mvn /usr/bin/mvn \
-  && rm /usr/local/maven/maven.tar.gz
+  && rm -v /maven.tar.gz
 
 ENV MAVEN_HOME=/usr/local/maven/default
 
@@ -49,22 +50,23 @@ ENV MAVEN_HOME=/usr/local/maven/default
 # Download: https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz
 ARG NODE_VERSION=14.17.3
 ARG NODE_ARCH=arm64
-COPY ./files/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz /
 RUN ARCH=$NODE_ARCH \
   && set -ex \
-  && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+  && curl -o /node.tar.xz "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
+  && tar -xJf "node.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-  && rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz
+  && rm -v /node.tar.xz
 
 # Install yarn
 # Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
 ENV YARN_VERSION 1.22.5
-COPY ./files/yarn-v${YARN_VERSION}.tar.gz /usr/local/yarn/
 RUN set -ex \
-  && cd /usr/local/yarn/ && tar -xzf yarn-v$YARN_VERSION.tar.gz \
+  && curl -o /yarn.tar.gz "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && mkdir -vp /usr/local/yarn/ \
+  && tar -xzf yarn.tar.gz -C /usr/local/yarn \
   && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
   && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
-  && rm yarn-v$YARN_VERSION.tar.gz \
+  && rm -v /yarn.tar.gz \
   && yarn config set disable-self-update-check true \
   && yarn global add gulp grunt requirejs
 
