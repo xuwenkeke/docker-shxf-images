@@ -4,6 +4,7 @@ on:
     branches: [ main ]
     paths:
       - 'openjdk/8/Dockerfile'
+      - '.github/workflows/openjdk8.yml'
 
 env:
   DOCKER_HUB_TAG: xuwenkeke/openjdk:8-jdk-alpine
