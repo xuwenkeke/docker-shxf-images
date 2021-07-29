@@ -3,11 +3,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'builder/centos7/Dockerfile'
-      - '.github/workflows/builder-centos7.yml'
+      - 'builder/centos8/Dockerfile'
+      - '.github/workflows/builder-centos8.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/builder:centos-7.5
+  DOCKER_HUB_TAG: xuwenkeke/builder:centos8.3.2011
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./builder/centos7/Dockerfile
+          file: ./builder/centos8/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm,linux/arm64
           tags: ${{ env.DOCKER_HUB_TAG }}

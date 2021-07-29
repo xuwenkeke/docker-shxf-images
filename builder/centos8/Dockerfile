@@ -1,4 +1,4 @@
-FROM centos:7.5.1804
+FROM centos:centos8.3.2011
 
 ENV LANG en_US.UTF-8
 
