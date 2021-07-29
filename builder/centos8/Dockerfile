@@ -12,9 +12,9 @@ RUN set -ex \
 # Change yum repositry
 RUN set -ex \
   && ls -lh /etc/yum.repos.d \
-  && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
-  && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
-  && yum clean all && yum makecache \
+  #&& mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
+  #&& curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
+  && yum makecache \
   && yum install -y git wget \
   && yum clean all \
   && rm -rf /var/cache/yum/*
@@ -36,7 +36,7 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Install Maven
 ARG MAVEN_VERSION=3.6.3
-COPY ./files/apache-maven-3.6.3-bin.tar.gz /usr/local/maven/maven.tar.gz
+COPY ./files/apache-maven-${MAVEN_VERSION}-bin.tar.gz /usr/local/maven/maven.tar.gz
 RUN set -ex \
   && cd /usr/local/maven/ && tar -zxf /usr/local/maven/maven.tar.gz \
   && ln -s /usr/local/maven/apache-maven-${MAVEN_VERSION} default \
@@ -47,22 +47,14 @@ ENV MAVEN_HOME=/usr/local/maven/default
 
 # Install nodejs
 # Download: https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz
-ARG NODE_VERSION=6.10.2
+ARG NODE_VERSION=14.17.3
 ARG NODE_ARCH=arm64
-COPY ./files/node-v${NODE_VERSION}-linux-arm64.tar.xz /
+COPY ./files/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz /
 RUN ARCH=$NODE_ARCH \
   && set -ex \
   && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && rm node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz
-
-# Test
-RUN set -ex \
-  && echo $(arch) \
-  && java -version \
-  && node -v \
-  && npm -v \
-  && mvn -v
 
 # Install yarn
 # Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
@@ -74,12 +66,14 @@ RUN set -ex \
   && ln -s /usr/local/yarn/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz \
   && yarn config set disable-self-update-check true \
-  && yarn global add gulp grunt requirejs
+  && yarn --verbose global add gulp grunt requirejs
 
 # Test
 RUN set -ex \
+  && echo $(arch) \
   && java -version \
   && node -v \
+  && npm -v \
   && mvn -v  \
   && yarn --version
 
