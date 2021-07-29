@@ -58,10 +58,11 @@ RUN ARCH=$NODE_ARCH \
 
 # Test
 RUN set -ex \
+  && echo $(arch) \
   && java -version \
   && node -v \
-  && mvn -v \
-  && echo $(arch)
+  && npm -v \
+  && mvn -v
 
 # Install yarn
 # Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
