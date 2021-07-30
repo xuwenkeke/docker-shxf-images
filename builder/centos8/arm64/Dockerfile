@@ -54,16 +54,16 @@ ARG NODE_VERSION=14.17.3
 ARG NODE_ARCH=arm64
 RUN set -ex \
   && mkdir -vp /usr/local/nodejs \
-  && curl -o /node.tar.xz "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$NODE_ARCH.tar.xz" \
+  && curl -k -o /node.tar.xz "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$NODE_ARCH.tar.xz" \
   && tar -xJf "node.tar.xz" -C /usr/local/nodejs --strip-components=1 --no-same-owner \
   && ln -s /usr/local/nodejs/bin/node /usr/local/bin/nodejs \
   && rm -v /node.tar.xz
 
 # Install yarn
 # Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
-ENV YARN_VERSION 1.22.5
+ARG YARN_VERSION=1.22.5
 RUN set -ex \
-  && curl -o /yarn.tar.gz "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && curl -k -o /yarn.tar.gz "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" \
   && mkdir -vp /usr/local/yarn/ \
   && tar -xzf /yarn.tar.gz -C /usr/local/yarn --strip-components=1 --no-same-owner \
   && ln -s /usr/local/yarn/bin/yarn /usr/local/bin/yarn \
