@@ -24,10 +24,10 @@ ARG JAVA_VERSION=jdk-8u301
 RUN set -ex \
   && mkdir -vp /usr/local/java \
   && wget --no-cookies \
-  &&    --no-check-certificate \
-  &&    --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-  &&    https://download.oracle.com/otn-pub/java/jdk/8u301-b09/d3c52aa6bfa54d3ca74e617f18309292/${JAVA_VERSION}-linux-aarch64.tar.gz \
-  &&    -O /jdk.tar.gz \
+      --no-check-certificate \
+      --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+      "https://download.oracle.com/otn-pub/java/jdk/8u301-b09/d3c52aa6bfa54d3ca74e617f18309292/${JAVA_VERSION}-linux-aarch64.tar.gz" \
+      -O /jdk.tar.gz \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ \
   && cd /usr/local/java \
   && ls -lh \
