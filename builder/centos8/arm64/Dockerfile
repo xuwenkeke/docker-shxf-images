@@ -63,8 +63,7 @@ RUN set -ex \
 # Download: https://github.com/yarnpkg/yarn/releases/download/v1.22.11/yarn-v1.22.11.tar.gz
 ARG YARN_VERSION=1.22.11
 RUN set -ex \
-  && curl -k -o /yarn.tar.gz "https://github.com/yarnpkg/yarn/releases/download/v$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
-  && ls -lh /yarn.tar.gz \
+  && wget --no-check-certificate "https://github.com/yarnpkg/yarn/releases/download/v$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" -O /yarn.tar.gz \
   && mkdir -vp /usr/local/yarn/ \
   && tar -xzf /yarn.tar.gz -C /usr/local/yarn --strip-components=1 --no-same-owner \
   && ln -s /usr/local/yarn/bin/yarn /usr/local/bin/yarn \
