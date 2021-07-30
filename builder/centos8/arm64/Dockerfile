@@ -83,8 +83,10 @@ RUN set -ex \
   && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}  
 
 # Test
-COPY builder/centos8/arm64/* /tmp/yarn
+WORKDIR /tmp/yarn  
+COPY ./builder/centos8/arm64 .
 RUN set -ex \
+  && ls -lh . \
   && echo $(arch) \
   && git --version \
   && java -version \
