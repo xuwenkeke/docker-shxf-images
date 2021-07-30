@@ -41,7 +41,7 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 ARG MAVEN_VERSION=3.6.3
 RUN set -ex \
   && mkdir -vp /usr/local/maven \
-  && curl -k -o /maven.tar.gz "https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+  && wget --no-check-certificate "https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O /maven.tar.gz \
   && tar -zxf /maven.tar.gz -C /usr/local/maven --strip-components=1 --no-same-owner \
   && ln -s /usr/local/maven/bin/mvn /usr/bin/mvn \
   && rm -v /maven.tar.gz
@@ -53,10 +53,11 @@ ENV MAVEN_HOME=/usr/local/maven
 ARG NODE_VERSION=14.17.3
 ARG NODE_ARCH=arm64
 RUN set -ex \
-  && mkdir -vp /usr/local/nodejs \
-  && curl -k -o /node.tar.xz "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$NODE_ARCH.tar.xz" \
-  && tar -xJf "node.tar.xz" -C /usr/local/nodejs --strip-components=1 --no-same-owner \
-  && ln -s /usr/local/nodejs/bin/node /usr/local/bin/nodejs \
+  && mkdir -vp /usr/local/node \
+  && wget --no-check-certificate "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz" -O /node.tar.xz \
+  && tar -zxf /node.tar.xz -C /usr/local/node --strip-components=1 --no-same-owner \
+  && ln -s /usr/local/node/bin/node /usr/local/bin/node \
+  && ln -s /usr/local/node/bin/npm /usr/local/bin/npm \
   && rm -v /node.tar.xz
 
 # Install yarn
