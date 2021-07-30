@@ -5,6 +5,8 @@ ENV LANG=en_US.UTF-8
 # Set timezone
 ENV TIMEZONE=Asia/Shanghai
 RUN set -ex \
+  && echo "export LC_ALL=${LANG}" >> /etc/profile \
+  && source /etc/profile \
   && echo ${TIMEZONE} > /etc/timezone \
   && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
   && echo ${TIMEZONE} > /etc/TZ
