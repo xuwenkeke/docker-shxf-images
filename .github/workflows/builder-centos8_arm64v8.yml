@@ -50,4 +50,6 @@ jobs:
         name: Test
         run: |
           docker pull ${{ env.DOCKER_HUB_TAG }}
-          docker run --rm ${{ env.DOCKER_HUB_TAG }} git --version
+          docker run --rm ${{ env.DOCKER_HUB_TAG }} \
+            -v ./builder/centos8/arm64/:/deploy \
+            cd /deploy && ls -lh && yarn install 
