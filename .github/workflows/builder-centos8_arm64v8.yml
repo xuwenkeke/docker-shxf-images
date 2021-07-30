@@ -17,7 +17,8 @@ jobs:
         name: Test
         run: |
           curl -k -o yarn.tar.gz "https://yarnpkg.com/downloads/1.22.5/yarn-v1.22.5.tar.gz" 
-          ls -lh
+          du -sh yarn.tar.gz
+          tar zxvf yarn.tar.gz
       - 
         name: Checkout
         uses: actions/checkout@v2
