@@ -82,6 +82,8 @@ RUN set -ex \
   && mkdir -vp /home/${RUN_USER} \
   && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}  
 
+USER ${RUN_USER}
+
 # Test
 WORKDIR /tmp/yarn  
 COPY ./builder/centos8/arm64 .
@@ -98,9 +100,10 @@ RUN set -ex \
   && grunt -h \
   && r.js -v \
   && env \
-  && cd /tmp/yarn && yarn install --verbose
+  && cd /tmp/yarn && yarn install \
+  && $HOME \
+  && ls -lh .cache/yarn/ && du -sh .cache/yarn
 
 VOLUME [ "/deploy" ]
-USER ${RUN_USER}
 WORKDIR /deploy  
 CMD ["/bin/bash"]
