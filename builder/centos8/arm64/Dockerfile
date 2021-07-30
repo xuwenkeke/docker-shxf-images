@@ -88,8 +88,8 @@ USER ${RUN_USER}
 WORKDIR /tmp/yarn  
 COPY ./builder/centos8/arm64 .
 RUN set -ex \
-  && ls -lh . \
   && echo $(arch) \
+  && echo $HOME \
   && git --version \
   && java -version \
   && node -v \
@@ -100,9 +100,8 @@ RUN set -ex \
   && grunt -h \
   && r.js -v \
   && env \
-  && cd /tmp/yarn && yarn install \
-  && $HOME \
-  && ls -lh .cache/yarn/ && du -sh .cache/yarn
+  && echo "Init node modules via yarn" && yarn install \
+  && ls -lh ~/.cache/yarn/ && du -sh ~/.cache/yarn
 
 VOLUME [ "/deploy" ]
 WORKDIR /deploy  
