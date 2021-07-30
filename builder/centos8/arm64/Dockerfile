@@ -74,19 +74,6 @@ RUN set -ex \
   && yarn config set disable-self-update-check true \
   && yarn global add gulp grunt requirejs
 
-# Test
-# RUN set -ex \
-#   && echo $(arch) \
-#   && java -version \
-#   && node -v \
-#   && npm -v \
-#   && mvn -v  \
-#   && yarn --version \
-#   && gulp -v \
-#   && grunt -h \
-#   && r.js -v \
-#   && env
-
 # Create User
 ARG RUN_USER=xf
 RUN set -ex \
@@ -94,6 +81,22 @@ RUN set -ex \
   && useradd -r --gid ${RUN_USER} --uid 800 --shell /bin/bash ${RUN_USER} \
   && mkdir -vp /home/${RUN_USER} \
   && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}  
+
+# Test
+COPY builder/centos8/arm64/* /tmp/yarn
+RUN set -ex \
+  && echo $(arch) \
+  && git --version \
+  && java -version \
+  && node -v \
+  && npm -v \
+  && mvn -v  \
+  && yarn --version \
+  && gulp -v \
+  && grunt -h \
+  && r.js -v \
+  && env \
+  && cd /tmp/yarn && yarn install --verbose
 
 VOLUME [ "/deploy" ]
 USER ${RUN_USER}

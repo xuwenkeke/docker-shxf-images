@@ -49,15 +49,4 @@ jobs:
       -
         name: Test
         run: |
-          docker run --platform arm64 --rm ${{ env.DOCKER_HUB_TAG }} -v ./builder/centos8/arm64/:/deploy \
-            echo $(arch) \
-            && java -version \
-            && node -v \
-            && npm -v \
-            && mvn -v  \
-            && yarn --version \
-            && gulp -v \
-            && grunt -h \
-            && r.js -v \
-            && env \
-            cd /deploy && ls -lh && yarn install 
+          docker run --platform arm64 --rm ${{ env.DOCKER_HUB_TAG }} git --version
