@@ -5,8 +5,7 @@ ENV LANG=en_US.UTF-8
 # Set timezone
 ENV TIMEZONE=Asia/Shanghai
 RUN set -ex \
-  && echo "export LC_ALL=${LANG}" >> /etc/profile \
-  && source /etc/profile \
+  && localedef -i en_US -f UTF-8 en_US.UTF-8 \
   && echo ${TIMEZONE} > /etc/timezone \
   && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
   && echo ${TIMEZONE} > /etc/TZ
@@ -76,16 +75,17 @@ RUN set -ex \
   && yarn global add gulp grunt requirejs
 
 # Test
-RUN set -ex \
-  && echo $(arch) \
-  && java -version \
-  && node -v \
-  && npm -v \
-  && mvn -v  \
-  && yarn --version \
-  && gulp -v \
-  && grunt -h \
-  && r.js -v
+# RUN set -ex \
+#   && echo $(arch) \
+#   && java -version \
+#   && node -v \
+#   && npm -v \
+#   && mvn -v  \
+#   && yarn --version \
+#   && gulp -v \
+#   && grunt -h \
+#   && r.js -v \
+#   && env
 
 # Create User
 ARG RUN_USER=xf
