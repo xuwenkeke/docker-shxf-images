@@ -60,10 +60,10 @@ RUN set -ex \
   && rm -v /node.tar.xz
 
 # Install yarn
-# Download: https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
-ARG YARN_VERSION=1.22.5
+# Download: https://github.com/yarnpkg/yarn/releases/download/v1.22.11/yarn-v1.22.11.tar.gz
+ARG YARN_VERSION=1.22.11
 RUN set -ex \
-  && curl -k -o /yarn.tar.gz "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" \
+  && curl -k -o /yarn.tar.gz "https://github.com/yarnpkg/yarn/releases/download/v$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
   && ls -lh /yarn.tar.gz \
   && mkdir -vp /usr/local/yarn/ \
   && tar -xzf /yarn.tar.gz -C /usr/local/yarn --strip-components=1 --no-same-owner \
