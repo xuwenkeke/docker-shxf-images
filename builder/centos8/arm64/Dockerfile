@@ -51,7 +51,7 @@ ENV MAVEN_HOME=/usr/local/maven
 
 # Install nodejs
 # Download: https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz
-ARG NODE_VERSION=14.17.3
+ARG NODE_VERSION=8.17.0
 ARG NODE_ARCH=arm64
 RUN set -ex \
   && mkdir -vp /usr/local/node \
