@@ -100,7 +100,7 @@ RUN set -ex \
   && yarn --version \
   && r.js -v \
   && env \
-  && echo "Init node modules via yarn" && ls -lha . && yarn install --verbose \
+  && echo "Init node modules via yarn" && ls -lha . && yarn install \
   && ls -lh ~/.cache/yarn/ && du -sh ~/.cache/yarn
 
 VOLUME [ "/deploy" ]
