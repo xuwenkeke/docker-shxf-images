@@ -8,7 +8,7 @@ RUN set -ex \
   && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
   && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
   && yum makecache \
-  && yum install -y git wget glibc-locale-source glibc-langpack-en \
+  && yum install -y vim git wget glibc-locale-source glibc-langpack-en \
   && yum clean all \
   && rm -rf /var/cache/yum/*
 
@@ -51,7 +51,7 @@ ENV MAVEN_HOME=/usr/local/maven
 
 # Install nodejs
 # Download: https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz
-ARG NODE_VERSION=10.9.0
+ARG NODE_VERSION=9.9.0
 ARG NODE_ARCH=arm64
 RUN set -ex \
   && mkdir -vp /usr/local/node \
