@@ -97,7 +97,6 @@ RUN set -ex \
   && npm -v \
   && mvn -v  \
   && yarn --version \
-  && gulp -v \
   && grunt -h \
   && r.js -v \
   && env \
