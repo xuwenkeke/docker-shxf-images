@@ -59,7 +59,9 @@ RUN set -ex \
   && tar -zxf /node.tar.xz -C /usr/local/node --strip-components=1 --no-same-owner \
   && ln -s /usr/local/node/bin/node /usr/local/bin/node \
   && ln -s /usr/local/node/bin/npm /usr/local/bin/npm \
-  && rm -v /node.tar.xz
+  && rm -v /node.tar.xz \
+  && npm rm --global gulp \
+  && npm install --global gulp-cli npx grunt requirejs
 
 # Install yarn
 # Download: https://github.com/yarnpkg/yarn/releases/download/v1.22.11/yarn-v1.22.11.tar.gz
@@ -71,8 +73,7 @@ RUN set -ex \
   && ln -s /usr/local/yarn/bin/yarn /usr/local/bin/yarn \
   && ln -s /usr/local/yarn/bin/yarnpkg /usr/local/bin/yarnpkg \
   && rm -v /yarn.tar.gz \
-  && yarn config set disable-self-update-check true \
-  && yarn global add gulp grunt requirejs
+  && yarn config set disable-self-update-check true
 
 # Create User
 ARG RUN_USER=xf
