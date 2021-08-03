@@ -96,7 +96,6 @@ RUN set -ex \
   && npm -v \
   && mvn -v  \
   && yarn --version \
-  && grunt -h \
   && r.js -v \
   && env \
   && echo "Init node modules via yarn" && yarn install \
