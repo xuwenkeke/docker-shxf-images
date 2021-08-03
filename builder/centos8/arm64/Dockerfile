@@ -80,13 +80,15 @@ RUN set -ex \
   && groupadd -r ${RUN_USER} --gid 800 \
   && useradd -r --gid ${RUN_USER} --uid 800 --shell /bin/bash ${RUN_USER} \
   && mkdir -vp /home/${RUN_USER} \
+  && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER} \
   && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}  
 
+# change User
 USER ${RUN_USER}
 
 # Test
 WORKDIR /tmp/yarn  
-COPY ./builder/centos8/arm64 .
+COPY --chown=${RUN_USER}:${RUN_USER} ./builder/centos8/arm64 .
 RUN set -ex \
   && echo $(arch) \
   && echo $HOME \
@@ -98,7 +100,7 @@ RUN set -ex \
   && yarn --version \
   && r.js -v \
   && env \
-  && echo "Init node modules via yarn" && ls -lha . && ls -lh ~/.cache && yarn install --verbose \
+  && echo "Init node modules via yarn" && ls -lha . && yarn install --verbose \
   && ls -lh ~/.cache/yarn/ && du -sh ~/.cache/yarn
 
 VOLUME [ "/deploy" ]
