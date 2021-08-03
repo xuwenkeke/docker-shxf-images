@@ -72,7 +72,7 @@ RUN set -ex \
   && ln -s /usr/local/yarn/bin/yarnpkg /usr/local/bin/yarnpkg \
   && rm -v /yarn.tar.gz \
   && yarn config set disable-self-update-check true \
-  && yarn global add gulp-cli npx grunt requirejs
+  && yarn global add gulp-cli requirejs
 
 # Create User
 ARG RUN_USER=xf
