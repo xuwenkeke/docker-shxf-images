@@ -91,15 +91,12 @@ WORKDIR /tmp/yarn
 COPY --chown=${RUN_USER}:${RUN_USER} ./builder/centos8/arm64 .
 RUN set -ex \
   && echo $(arch) \
-  && echo $HOME \
   && git --version \
   && java -version \
   && node -v \
   && npm -v \
   && mvn -v  \
-  && yarn --version \
   && r.js -v \
-  && env \
   && echo "Init node modules via yarn" && ls -lha . && yarn install \
   && ls -lh ~/.cache/yarn/ && du -sh ~/.cache/yarn
 

@@ -22,7 +22,6 @@
     "gulp-uglify": "^3.0.0",
     "gulp-useref": "^3.1.5",
     "gulp-util": "^3.0.7",
-    "jit-grunt": "^0.10.0",
     "lodash": "^4.17.15",
     "q": "^1.5.1",
     "yargs": "^11.0.0"
