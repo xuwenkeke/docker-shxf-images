@@ -49,4 +49,4 @@ jobs:
         name: Test
         run: |
           docker pull ${{ env.DOCKER_HUB_TAG }}
-          docker run --rm --entrypoint="/usr/bin/java -version" ${{ env.DOCKER_HUB_TAG }}
+          docker run --rm --entrypoint="env" ${{ env.DOCKER_HUB_TAG }}
