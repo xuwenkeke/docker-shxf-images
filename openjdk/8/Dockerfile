@@ -16,7 +16,7 @@ RUN set -ex \
 
 USER ${RUN_USER}
 
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Duser.timezone=Asia/Shanghai", "-Dfile.encoding=UTF-8", "-jar", "/app/bootstrap.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Duser.timezone=Asia/Shanghai", "-Dfile.encoding=UTF-8", "-jar", "/app/bootstrap.jar"]
 
 # docker build -t shxf/openjdk:8-jdk-alpine .
 
