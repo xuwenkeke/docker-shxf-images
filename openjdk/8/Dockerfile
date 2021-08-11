@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jdk-buster
 
 # Set timezone
 ENV LANG en_US.UTF-8
