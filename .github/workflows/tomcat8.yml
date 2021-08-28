@@ -49,5 +49,5 @@ jobs:
       -
         name: Test
         run: | 
-          docker run --platform arm64 ${{ env.DOCKER_HUB_TAG }}
+          docker run -d --platform arm64 ${{ env.DOCKER_HUB_TAG }}
           curl -v http://localhost:8080
