@@ -48,6 +48,6 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
       -
         name: Test
-        run: |
-          docker run --platform arm64 --rm ${{ env.DOCKER_HUB_TAG }}
+        run: | 
+          docker run --platform arm64 ${{ env.DOCKER_HUB_TAG }}
           curl -v http://localhost:8080
