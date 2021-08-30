@@ -54,8 +54,7 @@ WORKDIR /home/${RUN_USER}/
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN set -ex \
   && wget --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
-  && tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner \
-  && cp ./install/license.dat tongweb/license.dat
+  && tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner
 
 
 # Run Tongweb
