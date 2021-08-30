@@ -24,7 +24,7 @@ RUN set -ex \
 ARG JAVA_VERSION=jdk-8u301
 RUN set -ex \
   && mkdir -vp /usr/local/java \
-  && wget --no-cookies \
+  && wget --quiet --no-cookies \
       --no-check-certificate \
       --header "Cookie: oraclelicense=accept-securebackup-cookie" \
       "https://download.oracle.com/otn-pub/java/jdk/8u301-b09/d3c52aa6bfa54d3ca74e617f18309292/${JAVA_VERSION}-linux-aarch64.tar.gz" \
@@ -54,8 +54,8 @@ WORKDIR /home/${RUN_USER}/
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN set -ex \
   && echo `pwd` \
-  && wget --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
-  && tar -zxf TongWeb_Enter_Linux.tar.gz -C ./tongweb --strip-components=1 --no-same-owner \
+  && wget --quiet --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
+  && tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --strip-components=1 --no-same-owner \
   && cp ./install/license.dat tongweb/license.dat
 
 
