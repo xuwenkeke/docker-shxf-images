@@ -7,7 +7,7 @@ on:
       - '.github/workflows/tongweb7.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/tongweb:7-centos8.3-oraclejdk8
+  DOCKER_HUB_TAG: xuwenkeke/tongweb:7.0.4.3-centos8.3-oraclejdk8
 
 jobs:
   build:

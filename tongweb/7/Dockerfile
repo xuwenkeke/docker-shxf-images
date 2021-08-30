@@ -1,4 +1,4 @@
-FROM tongweb:7.0.4.3-centos8.3-oraclejdk8
+FROM centos:centos8.3.2011
 
 ENV LANG=en_US.UTF-8
 
@@ -68,6 +68,6 @@ RUN set -ex \
 
 EXPOSE 8088/tcp
 EXPOSE 9060/tcp
-VOLUME [ "/home/${RUN_USER}/tongweb/logs" ]
+VOLUME [ "/home/${RUN_USER}/tongweb/logs", "/home/${RUN_USER}/tongweb/bin/external.vmoptions" ]
 
 CMD ["/bin/bash"]
