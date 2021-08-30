@@ -8,7 +8,7 @@ RUN set -ex \
   && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
   && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
   && yum makecache \
-  && yum install -y vim git wget glibc-locale-source glibc-langpack-en \
+  && yum install -y vim wget glibc-locale-source glibc-langpack-en \
   && yum clean all \
   && rm -rf /var/cache/yum/*
 
@@ -53,7 +53,7 @@ USER ${RUN_USER}
 WORKDIR /home/${RUN_USER}/
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN set -ex \
-  && pwd \
+  && echo `pwd` \
   && wget --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
   && tar -zxf TongWeb_Enter_Linux.tar.gz -C ./tongweb --strip-components=1 --no-same-owner \
   && cp ./install/license.dat tongweb/license.dat
@@ -68,6 +68,8 @@ RUN set -ex \
 
 EXPOSE 8088/tcp
 EXPOSE 9060/tcp
-VOLUME [ "/home/${RUN_USER}/tongweb/logs", "/home/${RUN_USER}/tongweb/bin/external.vmoptions" ]
+VOLUME [ "/home/${RUN_USER}/tongweb/logs" ]
+VOLUME [ "/home/${RUN_USER}/tongweb/bin/external.vmoptions" ]
+VOLUME [ "/home/${RUN_USER}/tongweb/conf/tongweb.xml" ]
 
 CMD ["/bin/bash"]
