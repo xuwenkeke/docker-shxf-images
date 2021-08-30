@@ -67,8 +67,5 @@ WORKDIR ${TONGWEB_HOME}
 
 EXPOSE 8088/tcp
 EXPOSE 9060/tcp
-VOLUME [ "/home/${RUN_USER}/tongweb/logs" ]
-VOLUME [ "/home/${RUN_USER}/tongweb/bin/external.vmoptions" ]
-VOLUME [ "/home/${RUN_USER}/tongweb/conf/tongweb.xml" ]
 
 CMD ["bin/startserver.sh"]

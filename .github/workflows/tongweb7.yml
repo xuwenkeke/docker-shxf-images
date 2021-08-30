@@ -51,4 +51,4 @@ jobs:
         run: | 
           docker run -d --platform arm64 -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_TAG }}
           docker container ls -a
-          curl -v telnet://localhost:8080
+          curl -v telnet://localhost:9060
