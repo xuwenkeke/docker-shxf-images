@@ -64,9 +64,6 @@ ENV TONGWEB_HOME=/home/${RUN_USER}/tongweb
 ENV TONGWEB_VERSION=7.0.4.3
 
 WORKDIR ${TONGWEB_HOME}
-RUN set -ex \
-  && ls -lh \
-  && sh bin/version.sh
 
 EXPOSE 8088/tcp
 EXPOSE 9060/tcp
