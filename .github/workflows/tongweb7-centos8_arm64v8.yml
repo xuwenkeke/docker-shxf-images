@@ -1,10 +1,10 @@
-name: TongWeb7
+name: TongWeb7 ( linux/arm64/v8 )
 on:
   push:
     branches: [ main ]
     paths:
       - 'tongweb/7/Dockerfile'
-      - '.github/workflows/tongweb7.yml'
+      - '.github/workflows/tongweb7-centos8_arm64v8.yml'
 
 env:
   DOCKER_HUB_TAG: xuwenkeke/tongweb:7.0.4.3-centos8.3-oraclejdk8
@@ -41,7 +41,7 @@ jobs:
           context: .
           file: ./tongweb/7/Dockerfile
           push: true
-          platforms: linux/amd64, linux/arm64/v8
+          platforms: linux/arm64/v8
           tags: ${{ env.DOCKER_HUB_TAG }}
       -
         name: Image digest
