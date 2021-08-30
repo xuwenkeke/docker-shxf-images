@@ -55,5 +55,5 @@ jobs:
       -
         name: Test2
         run: | 
-          docker run -it --platform arm64 ${{ env.DOCKER_HUB_TAG }} /bin/bash -x bin/version.sh
+          docker run --platform arm64 ${{ env.DOCKER_HUB_TAG }} /bin/bash -x bin/version.sh
           
