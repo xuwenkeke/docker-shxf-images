@@ -53,8 +53,7 @@ USER ${RUN_USER}
 WORKDIR /home/${RUN_USER}/
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN set -ex \
-  && echo `pwd` \
-  && wget --quiet --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
+  && wget --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
   && tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner \
   && cp ./install/license.dat tongweb/license.dat
 
@@ -69,3 +68,12 @@ EXPOSE 8088/tcp
 EXPOSE 9060/tcp
 
 CMD ["bin/startserver.sh"]
+
+
+
+
+# 如果由于dockerhub编译后的镜像, 下载太慢, 本地编译
+# git clone git@github.com:xuwenkeke/docker-shxf-images.git
+# cd docker-shxf-images
+# 开启ClashX全局代理
+# docker buildx build --platform linux/amd64 -t xuwenkeke/tongweb:7 -f tongweb/7/Dockerfile .
