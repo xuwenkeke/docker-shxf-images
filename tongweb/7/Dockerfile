@@ -63,7 +63,9 @@ RUN set -ex \
 ENV TONGWEB_HOME=/home/${RUN_USER}/tongweb
 ENV TONGWEB_VERSION=7.0.4.3
 
+WORKDIR ${TONGWEB_HOME}
 RUN set -ex \
+  && ls -lh \
   && sh bin/version.sh
 
 EXPOSE 8088/tcp
@@ -72,4 +74,4 @@ VOLUME [ "/home/${RUN_USER}/tongweb/logs" ]
 VOLUME [ "/home/${RUN_USER}/tongweb/bin/external.vmoptions" ]
 VOLUME [ "/home/${RUN_USER}/tongweb/conf/tongweb.xml" ]
 
-CMD ["/bin/bash"]
+CMD ["bin/startserver.sh"]
