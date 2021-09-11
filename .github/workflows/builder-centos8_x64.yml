@@ -4,7 +4,7 @@ on:
     branches: [ main ]
     paths:
       - 'builder/centos8/x64/Dockerfile'
-      - '..github/workflows/builder-centos8_x64.yml'
+      - '.github/workflows/builder-centos8_x64.yml'
 
 env:
   DOCKER_HUB_TAG: xuwenkeke/builder:centos8.3.2011-amd64
