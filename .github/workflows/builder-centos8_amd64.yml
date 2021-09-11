@@ -1,4 +1,4 @@
-name: Builder ( linux/arm64/v8 )
+name: Builder ( linux/amd64 )
 on:
   push:
     branches: [ main ]
