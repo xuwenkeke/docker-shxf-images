@@ -7,7 +7,7 @@ on:
       - '.github/workflows/builder-centos8_arm64v8.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/builder:centos8.3.2011
+  DOCKER_HUB_TAG: xuwenkeke/builder:centos8.3.2011-arm64v8
 
 jobs:
   build:
