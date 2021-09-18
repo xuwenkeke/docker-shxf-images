@@ -8,6 +8,10 @@ RUN set -ex \
   && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
   && echo ${TIMEZONE} > /etc/TZ
 
+# Install 
+RUN set -ex \
+  && apt-get update && apt install net-tools
+  
 # Create User
 ARG RUN_USER=xf
 RUN set -ex \

@@ -10,8 +10,7 @@ RUN set -ex \
 
 # Install 
 RUN set -ex \
-  && apt-get update && apt install net-tools \
-  && cat /etc/apt/sources.list
+  && apt-get update && apt install net-tools
 
 # Create User
 ARG RUN_USER=xf
