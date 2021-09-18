@@ -7,7 +7,7 @@ on:
       - '.github/workflows/openjdk8.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/openjdk:8-jdk-buster
+  DOCKER_HUB_TAG: xuwenkeke/openjdk:8-jdk-alpine3.9
 
 jobs:
   build:
