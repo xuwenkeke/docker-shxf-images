@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine3.9
+FROM openjdk:8-jdk-buster
 
 # Set timezone
 ENV LANG en_US.UTF-8
@@ -7,6 +7,10 @@ RUN set -ex \
   && echo ${TIMEZONE} > /etc/timezone \
   && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
   && echo ${TIMEZONE} > /etc/TZ
+
+# Install 
+RUN set -ex \
+  && apt install net-tools 
 
 # Create User
 ARG RUN_USER=xf
