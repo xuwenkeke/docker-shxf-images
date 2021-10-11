@@ -8,7 +8,7 @@ RUN set -ex \
   && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
   && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
   && yum makecache \
-  && yum install -y vim git wget glibc-locale-source glibc-langpack-en \
+  && yum install -y vim wget unzip zip glibc-locale-source glibc-langpack-en \
   && yum clean all \
   && rm -rf /var/cache/yum/*
 
