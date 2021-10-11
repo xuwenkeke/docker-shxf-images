@@ -21,13 +21,12 @@ RUN set -ex \
   && echo ${TIMEZONE} > /etc/TZ
   
 # Install JDK
-ARG JAVA_VERSION=jdk-8u291
+ARG JAVA_VERSION=jdk-8u301
 RUN set -ex \
   && mkdir -vp /usr/local/java \
   && wget --no-cookies \
       --no-check-certificate \
-      --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-      "https://download.oracle.com/otn-pub/java/jdk/8u291-b10/d7fc238d0cbf4b0dac67be84580cfb4b/${JAVA_VERSION}-linux-aarch64.tar.gz" \
+      "https://www.dropbox.com/s/5v0wvp7vdy27cp8/${JAVA_VERSION}-linux-$(arch).tar.gz?dl=0" \
       -O /jdk.tar.gz \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security \
