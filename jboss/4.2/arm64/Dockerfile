@@ -8,7 +8,7 @@ RUN set -ex \
   && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
   && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
   && yum makecache \
-  && yum install -y vim wget unzip zip glibc-locale-source glibc-langpack-en \
+  && yum install -y vim wget glibc-locale-source glibc-langpack-en \
   && yum clean all \
   && rm -rf /var/cache/yum/*
 
@@ -44,7 +44,7 @@ RUN set -ex \
   && mkdir -vp ${JBOSS_HOME} \
   && chmod 755 ${JBOSS_HOME} \
   && wget --no-check-certificate "https://nchc.dl.sourceforge.net/project/jboss/JBoss/JBoss-${JBOSS_VERSION}/jboss-${JBOSS_VERSION}.zip" -O /jboss.zip \
-  && unzip -j /jboss.zip -d /usr/local/jboss \
+  && tar -zxvf /jboss.zip -C ${JBOSS_HOME} --strip-components 1  \
   && rm -v /jboss.zip
 
 # Create User
