@@ -44,7 +44,7 @@ RUN set -ex \
   && mkdir -vp ${JBOSS_HOME} \
   && chmod 755 ${JBOSS_HOME} \
   && wget --no-check-certificate "https://nchc.dl.sourceforge.net/project/jboss/JBoss/JBoss-${JBOSS_VERSION}/jboss-${JBOSS_VERSION}.zip" -O /jboss.zip \
-  && unzip /jboss.zip -d /usr/local/jboss \
+  && unzip -j /jboss.zip -d /usr/local/jboss \
   && rm -v /jboss.zip
 
 # Create User
