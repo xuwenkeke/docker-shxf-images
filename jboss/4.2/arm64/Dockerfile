@@ -35,7 +35,10 @@ WORKDIR ${JBOSS_HOME}
 # Test
 RUN set -ex \
   && ls -lh \
-  && java -version
+  && java -version \
+  && ls -lh /etc/localtime \
+  && env \
+  && echo $(dpkg --print-architecture)
 
 EXPOSE 8080/tcp
 CMD ["bin/run.sh"]

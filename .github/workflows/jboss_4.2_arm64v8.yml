@@ -7,7 +7,7 @@ on:
       - '.github/workflows/jboss_4.2_arm64v8.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/jboss:4.2-oraclejdk8-centos8
+  DOCKER_HUB_TAG: xuwenkeke/jboss:4.2-openjdk7-jessie
 
 jobs:
   build:
