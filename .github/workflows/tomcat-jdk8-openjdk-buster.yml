@@ -1,13 +1,13 @@
-name: JBoss ( linux/arm64/v8 )
+name: Tomcat8.5 (jdk8-openjdk-buster)
 on:
   push:
     branches: [ main ]
     paths:
-      - 'jboss/4.2/arm64/Dockerfile'
-      - '.github/workflows/jboss_4.2_arm64v8.yml'
+      - 'tomcat/8.5/jdk8-openjdk-buster/Dockerfile'
+      - '.github/workflows/tomcat-jdk8-openjdk-buster.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/jboss:4.2-openjdk7-jessie
+  DOCKER_HUB_TAG: xuwenkeke/tomcat:8.5-jdk8-openjdk-buster
 
 jobs:
   build:
@@ -39,16 +39,16 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./jboss/4.2/arm64/Dockerfile
+          file: ./tomcat/8.5/jdk8-openjdk-buster/Dockerfile
           push: true
-          platforms: linux/arm64/v8
+          platforms: linux/amd64, linux/arm64/v8
           tags: ${{ env.DOCKER_HUB_TAG }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
       -
         name: Test
-        run: |
-          docker run -d --platform arm64 -p 8080:8080 --rm ${{ env.DOCKER_HUB_TAG }}
+        run: | 
+          docker run -d --platform arm64 -p 8080:8080 ${{ env.DOCKER_HUB_TAG }}
           docker container ls -a
           curl -v telnet://localhost:8080
