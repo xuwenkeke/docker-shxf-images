@@ -10,8 +10,7 @@ RUN set -ex \
 
 # Install 
 RUN set -ex \
-  && apt-get update && apt install net-tools \
-  && apt list --installed && apt remove openjdk-8
+  && apt-get update && apt install net-tools
 
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
@@ -24,7 +23,9 @@ RUN set -ex \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security \
   && rm -v /jdk.tar.gz \
-  && ls -lh /usr/local/openjdk-8
+  && echo 'Remove OpenJDK' \
+  && ls -lh /usr/local/openjdk-8 \
+  && rm -rf /usr/local/openjdk-8
 
 ENV JAVA_HOME=/usr/local/java
 ENV JAVA_BIN=${JAVA_HOME}/bin
