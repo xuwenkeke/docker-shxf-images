@@ -11,7 +11,7 @@ RUN set -ex \
 # Install 
 RUN set -ex \
   && apt-get update && apt install net-tools \
-  && apt remove openjdk-8
+  && apt list --installed && apt remove openjdk-8
 
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
