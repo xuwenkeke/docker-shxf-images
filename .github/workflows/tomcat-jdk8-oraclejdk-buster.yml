@@ -7,7 +7,7 @@ on:
       - '.github/workflows/tomcat-jdk8-oraclejdk-buster.yml'
 
 env:
-  DOCKER_HUB_TAG: xuwenkeke/tomcat:8.5-jdk8-openjdk-buster
+  DOCKER_HUB_TAG: xuwenkeke/tomcat:8.5-jdk8-oraclejdk-buster
 
 jobs:
   build:
