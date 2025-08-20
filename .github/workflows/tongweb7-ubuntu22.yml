@@ -21,10 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       
-      # Add support for more platforms with QEMU (optional)
-        # https://github.com/docker/setup-qemu-action
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+      # # Add support for more platforms with QEMU (optional)
+      #   # https://github.com/docker/setup-qemu-action
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v3
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
@@ -56,6 +56,7 @@ jobs:
           context: .
           file: ./${{ env.DOCKER_FILE }}
           load: true
+          platforms: linux/arm64
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
       
       - name: Test
