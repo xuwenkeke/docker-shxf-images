@@ -25,8 +25,7 @@ RUN set -ex \
       -O /jdk.tar.gz \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security \
-  && rm -v /jdk.tar.gz \
-  && java --version
+  && rm -v /jdk.tar.gz
 
 ENV JAVA_HOME=/usr/local/java
 ENV JAVA_BIN=${JAVA_HOME}/bin
@@ -39,7 +38,8 @@ RUN set -ex \
   && groupadd -r ${RUN_USER} --gid 800 \
   && useradd -r --gid ${RUN_USER} --uid 800 --shell /bin/bash ${RUN_USER} \
   && mkdir -vp /home/${RUN_USER}/tongweb \
-  && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}  
+  && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER} \
+  && java --version
 
 # change User
 USER ${RUN_USER}
