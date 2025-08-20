@@ -21,10 +21,7 @@ RUN set -ex \
 ARG JAVA_VERSION=jdk-8u301
 RUN set -ex \
   && mkdir -vp /usr/local/java \
-  && wget --quiet --no-cookies \
-      --no-check-certificate \
-      --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-      "https://download.oracle.com/otn-pub/java/jdk/8u301-b09/d3c52aa6bfa54d3ca74e617f18309292/${JAVA_VERSION}-linux-aarch64.tar.gz" \
+  && wget --no-check-certificate "https://www.dropbox.com/scl/fi/6ymz8izi4ndf549gt1rcq/${JAVA_VERSION}-linux-aarch64.tar.gz?rlkey=x0xukjsoi8dui846a8mw8e85x&st=dk7a9tmx&dl=0" \
       -O /jdk.tar.gz \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security \
@@ -52,7 +49,6 @@ COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN set -ex \
   && wget --no-check-certificate "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" -O ./install/TongWeb_Enter_Linux.tar.gz \
   && tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner
-
 
 # Run Tongweb
 ENV TONGWEB_HOME=/home/${RUN_USER}/tongweb
