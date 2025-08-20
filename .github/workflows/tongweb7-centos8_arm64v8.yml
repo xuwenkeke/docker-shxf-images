@@ -9,8 +9,8 @@ on:
 
 env:
   DOCKER_HUB_REPOSITORY: 'xuwenkeke/tongweb'
-  DOCKER_HUB_TEST_TAG: '${{ env.DOCKER_HUB_REPOSITORY }}:7-test'
-  DOCKER_HUB_TAG: '${{ env.DOCKER_HUB_REPOSITORY }}:7.0.4.3-centos8.3-oraclejdk8'
+  DOCKER_HUB_TEST_TAG: '7-test'
+  DOCKER_HUB_TAG: '7.0.4.3-centos8.3-oraclejdk8'
 
 jobs:
   build:
@@ -47,16 +47,16 @@ jobs:
           context: .
           file: ./tongweb/7/Dockerfile
           load: true
-          tags: ${{ env.DOCKER_HUB_TEST_TAG }}
+          tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
       
       - name: Test
         run: |
-          docker run -d --platform arm64 -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_TEST_TAG }}
+          docker run -d --platform arm64 -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
           docker container ls -a
           curl -v telnet://localhost:9060
       - name: Test2
         run: |
-          docker run --platform arm64 ${{ env.DOCKER_HUB_TEST_TAG }} /bin/bash -x bin/version.sh
+          docker run --platform arm64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} /bin/bash -x bin/version.sh
 
       # Login DockerHub
       # https://github.com/docker/login-action
@@ -77,7 +77,7 @@ jobs:
           file: ./tongweb/7/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: ${{ env.DOCKER_HUB_TAG }}
+          tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
