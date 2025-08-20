@@ -90,9 +90,10 @@ jobs:
       - name: Test TongWeb Port
         run: |
           echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
-          ls -lh ./tongweb/license.dat
-          docker run --platform arm64 -d -p 8088:8088 -p 9060:9060 -v ./tongweb/license.dat:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
+          LICENSE=$(realpath ./tongweb/license.dat)
+          cat ${LICENSE}
+          docker run --platform arm64 -d -p 8088:8088 -p 9060:9060 -v ${LICENSE}:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           sleep 10
-          curl -v http://localhost:9060/console
+          curl -sk -D - -o /dev/null 'http://localhost:9060/console'
           curl -v telnet://localhost:8088
       
