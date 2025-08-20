@@ -69,8 +69,6 @@ EXPOSE 9060/tcp
 CMD ["bin/startserver.sh"]
 
 
-
-
 # 如果由于dockerhub编译后的镜像, 下载太慢, 本地编译
 # git clone git@github.com:xuwenkeke/docker-shxf-images.git
 # cd docker-shxf-images
