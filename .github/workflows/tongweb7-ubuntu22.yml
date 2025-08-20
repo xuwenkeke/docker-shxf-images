@@ -8,6 +8,7 @@ on:
       - '.github/workflows/tongweb7-ubuntu22.yml'
 
 env:
+  DOCKER_FILE: 'tongweb/7/jdk8-oraclejdk-ubuntu22/Dockerfile'
   DOCKER_HUB_REPOSITORY: 'xuwenkeke/tongweb'
   DOCKER_HUB_TEST_TAG: '7-test'
   DOCKER_HUB_TAG: '7.0.4.3-ubuntu22-oraclejdk8'
@@ -36,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./tongweb/7/Dockerfile
+          file: ./${{ env.DOCKER_FILE }}
           call: check
 
       # Build and export to Docker
@@ -45,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./tongweb/7/Dockerfile
+          file: ./${{ env.DOCKER_FILE }}
           load: true
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
       
@@ -72,7 +73,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./tongweb/7/Dockerfile
+          file: ./${{ env.DOCKER_FILE }}
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
