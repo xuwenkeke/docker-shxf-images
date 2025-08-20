@@ -59,8 +59,8 @@ jobs:
 
       # Login DockerHub
       # https://github.com/docker/login-action
-      - name: Login to DockerHub
-        uses: docker/login-action@v3.5
+      - name: DockerHub Login
+        uses: docker/login-action@v3.5.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
