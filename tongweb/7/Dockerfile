@@ -1,14 +1,6 @@
-FROM centos:centos8.3.2011
+FROM centos:centos8.4.2105
 
 ENV LANG=en_US.UTF-8
-
-# Set timezone
-ENV TIMEZONE=Asia/Shanghai
-RUN set -ex \
-  && localedef -i en_US -f UTF-8 en_US.UTF-8 \
-  && echo ${TIMEZONE} > /etc/timezone \
-  && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
-  && echo ${TIMEZONE} > /etc/TZ
 
 # Change yum repositry
 RUN set -ex \
@@ -19,6 +11,17 @@ RUN set -ex \
   && yum install -y vim wget glibc-locale-source glibc-langpack-en \
   && yum clean all \
   && rm -rf /var/cache/yum/*
+
+# Set timezone
+ENV TIMEZONE=Asia/Shanghai
+RUN set -ex \
+  && timedatectl | grep "Time zone" \
+  && timedatectl set-timezone ${TIMEZONE} \
+  && timedatectl | grep "Time zone" && cat /etc/timezone && ls -lh /etc/localtime && cat /etc/TZ \
+  && localedef -i en_US -f UTF-8 en_US.UTF-8
+#  && echo ${TIMEZONE} > /etc/timezone \
+#  && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
+#  && echo ${TIMEZONE} > /etc/TZ
 
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
