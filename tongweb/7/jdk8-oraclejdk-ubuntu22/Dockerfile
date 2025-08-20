@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20250730
+FROM --platform=$TARGETPLATFORM ubuntu:jammy-20250730
 
 
 # Locales
