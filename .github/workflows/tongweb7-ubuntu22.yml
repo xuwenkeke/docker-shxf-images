@@ -59,25 +59,30 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
       
-      - name: Test
+      - name: Test TongWeb Port
         run: |
-          docker run -d --platform arm64 -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
+          docker run -d --platform amd64 -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
           docker container ls -a
-          curl -v telnet://localhost:9060
+          curl -v http://localhost:9060
+          curl -v http://localhost:8088
       - name: Test2
         run: |
-          docker run --platform arm64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} /bin/bash -x bin/version.sh
+          docker run --rm --platform amd64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} /bin/bash -x java -version && arch && bin/version.sh
 
       # Build and export to Docker
       # https://github.com/docker/build-push-action   
       - name: Build and push
         uses: docker/build-push-action@v6
+        id: docker_build
         with:
           context: .
           file: ./${{ env.DOCKER_FILE }}
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
