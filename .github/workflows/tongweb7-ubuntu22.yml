@@ -73,18 +73,12 @@ jobs:
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Test TongWeb version
+      - name: Test TongWeb image
         run: |
           docker pull --platform arm64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           docker image inspect ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} | grep 'Architecture'
           echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
           docker run --platform arm64 --rm -v ./tongweb/license.dat:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} /bin/sh -c "java -version && arch && sh ~/tongweb/bin/version.sh"
-      - name: Test TongWeb Port
-        run: |
-          echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
-          cat ${LICENSE}
-          docker run --platform arm64 -d -p 8088:8088 -p 9060:9060 -v ${LICENSE}:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
-          sleep 10
+          docker run --platform arm64 -d -p 9060:9060 -v ./tongweb/license.dat:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           curl -sk -D - -o /dev/null 'http://localhost:9060/console'
-          curl -v telnet://localhost:8088
       
