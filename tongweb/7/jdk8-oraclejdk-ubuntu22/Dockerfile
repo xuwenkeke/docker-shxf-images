@@ -2,7 +2,7 @@ FROM ubuntu:jammy-20250730
 
 
 # Locales
-RUN apt-get update && apt-get install -y locales wget vim systemd && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install -y locales wget vim && rm -rf /var/lib/apt/lists/* \
 	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
   && wget --version && vim --version \
   && apt-get clean
@@ -10,10 +10,12 @@ ENV LANG=en_US.UTF-8
 
 # Set timezone
 ENV TIMEZONE=Asia/Shanghai
+ENV TZ=Asia/Shanghai
 RUN set -ex \
-  && timedatectl | grep "Time zone" \
-  && timedatectl set-timezone ${TIMEZONE} \
-  && timedatectl | grep "Time zone" && cat /etc/timezone && ls -lh /etc/localtime && cat /etc/TZ
+  && echo ${TIMEZONE} > /etc/timezone \
+  && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
+  && echo ${TIMEZONE} > /etc/TZ \
+  && date
 
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
