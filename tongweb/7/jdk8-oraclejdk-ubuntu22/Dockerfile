@@ -34,6 +34,10 @@ RUN wget --version && \
     curl --version && \
     date
 
+  # Configure architecture environment
+RUN ARCH=$(dpkg --print-architecture); \
+    echo "Current Detected architecture: ${ARCH}"
+
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
 ARG TARGETPLATFORM
@@ -42,6 +46,7 @@ RUN case "${TARGETPLATFORM}" in \
         "linux/arm64") ARCH=arm64 ;; \
         *) echo "Unsupported platform: ${TARGETPLATFORM}"; exit 1 ;; \
     esac; \
+    echo "Target platform Detected architecture: ${ARCH}" && \
     mkdir -vp /usr/local/java && \
     wget --no-check-certificate --quiet \
         -O /jdk.tar.gz \
