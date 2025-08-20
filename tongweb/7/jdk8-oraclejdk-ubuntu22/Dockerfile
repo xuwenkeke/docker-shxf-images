@@ -45,7 +45,7 @@ RUN case "${TARGETPLATFORM}" in \
     mkdir -vp /usr/local/java && \
     wget --no-check-certificate --quiet \
         -O /jdk.tar.gz \
-        "https://www.dropbox.com/scl/fi/6ymz8izi4ndf549gt1rcq/${JAVA_VERSION}-linux-$(ARCH).tar.gz?rlkey=x0xukjsoi8dui846a8mw8e85x&st=dk7a9tmx&dl=0" && \
+        "https://www.dropbox.com/scl/fi/6ymz8izi4ndf549gt1rcq/${JAVA_VERSION}-linux-${ARCH}.tar.gz?rlkey=x0xukjsoi8dui846a8mw8e85x&st=dk7a9tmx&dl=0" && \
       tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner && \
       sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security && \
       rm -v /jdk.tar.gz

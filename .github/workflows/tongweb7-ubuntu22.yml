@@ -49,6 +49,26 @@ jobs:
             type=ref,event=tag
             type=ref,event=branch
 
+      # # Build and Test image
+      # # https://github.com/docker/build-push-action
+      # - name: Build and Test image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     file: ./${{ env.DOCKER_FILE }}
+      #     load: true
+      #     platforms: linux/amd64
+      #     tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
+      # - name: Test TongWeb Port
+      #   run: |
+      #     docker run -d -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
+      #     docker container ls -a
+      #     curl -v http://localhost:9060
+      #     curl -v http://localhost:8088
+      # - name: Test2
+      #   run: |
+      #     docker run --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} /bin/bash -x java -version && arch && ./bin/version.sh
+      
       - name: Build and push
         uses: docker/build-push-action@v6
         id: build
@@ -72,25 +92,6 @@ jobs:
 
 
 
-      # # Build and Test image
-      # # https://github.com/docker/build-push-action
-      # - name: Build and Test image
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: .
-      #     file: ./${{ env.DOCKER_FILE }}
-      #     load: true
-      #     platforms: linux/amd64
-      #     tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
-      # - name: Test TongWeb Port
-      #   run: |
-      #     docker run -d -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
-      #     docker container ls -a
-      #     curl -v http://localhost:9060
-      #     curl -v http://localhost:8088
-      # - name: Test2
-      #   run: |
-      #     docker run --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} /bin/bash -x java -version && arch && ./bin/version.sh
       
       # Build and export to Docker
       # https://github.com/docker/build-push-action   
