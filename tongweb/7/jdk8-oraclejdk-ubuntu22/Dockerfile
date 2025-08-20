@@ -2,14 +2,11 @@ FROM ubuntu:jammy-20250730
 
 
 # Locales
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG=en_US.UTF-8
-
-# Change yum repositry
-RUN apt-get install -y wget vim \
+RUN apt-get update && apt-get install -y locales wget vim && rm -rf /var/lib/apt/lists/* \
+	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
   && wget --version && vim --version \
   && apt-get clean
+ENV LANG=en_US.UTF-8
 
 # Set timezone
 ENV TIMEZONE=Asia/Shanghai
