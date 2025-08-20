@@ -4,8 +4,8 @@ FROM ubuntu:jammy-20250730
 # Locales
 RUN apt-get update && apt-get install -y locales wget vim && rm -rf /var/lib/apt/lists/* \
 	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
-  && wget --version && vim --version \
-  && apt-get clean
+  && wget --version && vim --version && curl --version \
+&& apt-get clean
 ENV LANG=en_US.UTF-8
 
 # Set timezone
@@ -39,7 +39,7 @@ RUN set -ex \
   && useradd -r --gid ${RUN_USER} --uid 800 --shell /bin/bash ${RUN_USER} \
   && mkdir -vp /home/${RUN_USER}/tongweb \
   && chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER} \
-  && java --version
+  && java -version
 
 # change User
 USER ${RUN_USER}
