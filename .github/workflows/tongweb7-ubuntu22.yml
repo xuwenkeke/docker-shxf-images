@@ -42,15 +42,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.DOCKER_HUB_REPOSITORY }}
-          tags: |
-            type=ref,event=tag
-            type=ref,event=branch
-
       # # Build and Test image
       # # https://github.com/docker/build-push-action
       # - name: Build and Test image
@@ -86,11 +77,11 @@ jobs:
         run: |
           docker pull --platform arm64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           docker image inspect ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} | grep 'Architecture'
-          docker run --platform arm64 --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} /bin/sh -c "java -version && arch && sh ~/tongweb/bin/version.sh"
+          echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
+          docker run --platform arm64 --rm -v ./tongweb/license.dat:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} /bin/sh -c "java -version && arch && sh ~/tongweb/bin/version.sh"
       - name: Test TongWeb Port
         run: |
           echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
-          LICENSE=$(realpath ./tongweb/license.dat)
           cat ${LICENSE}
           docker run --platform arm64 -d -p 8088:8088 -p 9060:9060 -v ${LICENSE}:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           sleep 10
