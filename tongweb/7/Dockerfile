@@ -2,16 +2,6 @@ FROM centos:centos8.3.2011
 
 ENV LANG=en_US.UTF-8
 
-# Change yum repositry
-RUN set -ex \
-  && ls -lh /etc/yum.repos.d \
-  && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
-  && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
-  && yum makecache \
-  && yum install -y vim wget glibc-locale-source glibc-langpack-en \
-  && yum clean all \
-  && rm -rf /var/cache/yum/*
-
 # Set timezone
 ENV TIMEZONE=Asia/Shanghai
 RUN set -ex \
@@ -19,7 +9,17 @@ RUN set -ex \
   && echo ${TIMEZONE} > /etc/timezone \
   && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
   && echo ${TIMEZONE} > /etc/TZ
-  
+
+# Change yum repositry
+RUN set -ex \
+  && ls -lh /etc/yum.repos.d \
+  && mv /etc/yum.repos.d/CentOS-Linux-BaseOS.repo /etc/yum.repos.d/CentOS-Linux-BaseOS.repo.backup \
+  && curl -o /etc/yum.repos.d/CentOS-Linux-BaseOS.repo https://mirrors.aliyun.com/repo/Centos-8.repo \
+  && yum clean all && yum makecache \
+  && yum install -y vim wget glibc-locale-source glibc-langpack-en \
+  && yum clean all \
+  && rm -rf /var/cache/yum/*
+
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
 RUN set -ex \
