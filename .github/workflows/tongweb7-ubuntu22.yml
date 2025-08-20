@@ -1,3 +1,5 @@
+# Doc: https://docs.github.com/zh/actions/get-started/quickstart
+
 name: TongWeb7 (jdk8-oraclejdk-ubuntu22)
 
 on:
@@ -82,13 +84,14 @@ jobs:
 
       - name: Test TongWeb version
         run: |
-          docker run --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} /bin/sh -c "java -version && arch && sh ~/tongweb/bin/version.sh"
-
+          docker pull --platform amd64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
+          docker image inspect ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} | grep 'Architecture'
+          docker run --platform amd64 --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }} /bin/sh -c "java -version && arch && sh ~/tongweb/bin/version.sh"
       - name: Test TongWeb Port
         run: |
           echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
           ls -lh ./tongweb/license.dat
-          docker run -d -p 8088:8088 -p 9060:9060 -v ./tongweb/license.dat:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
+          docker run --platform amd64 -d -p 8088:8088 -p 9060:9060 -v ./tongweb/license.dat:/home/xf/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           sleep 10
           curl -v http://localhost:9060/console
           curl -v telnet://localhost:8088
