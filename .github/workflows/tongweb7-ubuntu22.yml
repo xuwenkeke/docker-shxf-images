@@ -82,7 +82,12 @@ jobs:
 
       - name: Test TongWeb Port
         run: |
-          docker run -d -p 8088:8088 -p 9060:9060 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
+          echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
+          docker run -d \
+            -p 8088:8088 \
+            -p 9060:9060 \
+            -v ./tongweb/license.dat:/home/xf/tongweb/license.dat \
+            ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
           docker container ls -a
           curl -v http://localhost:9060
           curl -v http://localhost:8088

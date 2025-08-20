@@ -53,7 +53,7 @@ RUN case "${TARGETPLATFORM}" in \
         "https://www.dropbox.com/scl/fi/6ymz8izi4ndf549gt1rcq/${JAVA_VERSION}-linux-${ARCH}.tar.gz?rlkey=x0xukjsoi8dui846a8mw8e85x&st=dk7a9tmx&dl=0" && \
       tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner && \
       sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security && \
-      rm -v /jdk.tar.gz
+      rm -fv /jdk.tar.gz
 
 ENV JAVA_HOME=/usr/local/java
 ENV JAVA_BIN=${JAVA_HOME}/bin
@@ -77,7 +77,9 @@ RUN wget --quiet \
       --no-check-certificate \
       -O ./install/TongWeb_Enter_Linux.tar.gz \
       "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" && \
-    tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner
+    tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner && \
+    rm -fv ./install/TongWeb_Enter_Linux.tar.gz && \
+    touch ./tongweb/license.dat
 
 # Run Tongweb
 ENV TONGWEB_HOME=/home/${RUN_USER}/tongweb
