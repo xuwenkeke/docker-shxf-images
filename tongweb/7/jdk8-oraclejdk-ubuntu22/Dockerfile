@@ -25,7 +25,8 @@ RUN set -ex \
       -O /jdk.tar.gz \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security \
-  && rm -v /jdk.tar.gz
+  && rm -v /jdk.tar.gz \
+  && java --version
 
 ENV JAVA_HOME=/usr/local/java
 ENV JAVA_BIN=${JAVA_HOME}/bin
