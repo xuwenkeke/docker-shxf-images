@@ -20,8 +20,9 @@ RUN set -ex \
 # Install JDK
 ARG JAVA_VERSION=jdk-8u301
 RUN set -ex \
+  && echo `arch` \
   && mkdir -vp /usr/local/java \
-  && wget --no-check-certificate "https://www.dropbox.com/scl/fi/6ymz8izi4ndf549gt1rcq/${JAVA_VERSION}-linux-aarch64.tar.gz?rlkey=x0xukjsoi8dui846a8mw8e85x&st=dk7a9tmx&dl=0" \
+  && wget --no-check-certificate "https://www.dropbox.com/scl/fi/6ymz8izi4ndf549gt1rcq/${JAVA_VERSION}-linux-$(arch).tar.gz?rlkey=x0xukjsoi8dui846a8mw8e85x&st=dk7a9tmx&dl=0" \
       -O /jdk.tar.gz \
   && tar -zxf /jdk.tar.gz -C /usr/local/java/ --strip-components=1 --no-same-owner \
   && sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' /usr/local/java/jre/lib/security/java.security \
