@@ -29,10 +29,10 @@ RUN set -ex && \
   echo ${TIMEZONE} > /etc/TZ
 
 # Test
-RUN wget --version && \
-    vim --version && \
-    curl --version && \
-    date
+# RUN wget --version && \
+#     vim --version && \
+#     curl --version && \
+#     date
 
   # Configure architecture environment
 RUN ARCH=$(dpkg --print-architecture); \
@@ -60,32 +60,28 @@ ENV JAVA_BIN=${JAVA_HOME}/bin
 ENV PATH=$PATH:$JAVA_BIN
 ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
-# Create User
+# Install Tongweb
+ENV TONGWEB_HOME=/tongweb
+ENV TONGWEB_VERSION=7.0.4.3
 ARG RUN_USER=tongweb
-RUN groupadd --system --gid 102 ${RUN_USER} && \
-    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 102 --shell /bin/false ${RUN_USER} && \
-    mkdir -vp /tongweb && \
-    chown -R ${RUN_USER}:${RUN_USER} /tongweb
+RUN groupadd --system --gid 1001 ${RUN_USER} && \
+    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 1001 --shell /bin/false ${RUN_USER} && \
+    mkdir -vp ${TONGWEB_HOME} && \
+    chown -R ${RUN_USER}:${RUN_USER} ${TONGWEB_HOME}
 
 # change User
 USER ${RUN_USER}
 
 # Install Tongweb
-WORKDIR /tongweb
+WORKDIR ${TONGWEB_HOME}
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN wget --quiet \
       --no-check-certificate \
       -O ./install/TongWeb_Enter_Linux.tar.gz \
       "https://www.dropbox.com/s/wbdzd5x8asmkr69/TongWeb7.0.4.3_Enter_Linux.tar.gz?dl=0" && \
-    tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ./tongweb --no-same-owner && \
+    tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ${TONGWEB_HOME} --no-same-owner && \
     rm -fv ./install/TongWeb_Enter_Linux.tar.gz && \
-    touch ./tongweb/license.dat
-
-# Run Tongweb
-ENV TONGWEB_HOME=/tongweb
-ENV TONGWEB_VERSION=7.0.4.3
-
-WORKDIR ${TONGWEB_HOME}
+    touch ${TONGWEB_HOME}/license.dat
 
 EXPOSE 8088/tcp
 EXPOSE 9060/tcp
