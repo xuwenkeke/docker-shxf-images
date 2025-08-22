@@ -49,12 +49,11 @@ jobs:
         with:
           context: .
           file: ./${{ env.DOCKER_FILE }}
-          load: true
+          load: true # Exports the image to the Docker daemon
           platforms: linux/arm64/v8
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
       - name: Test TongWeb image
         run: |
-          docker pull --platform arm64 ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
           docker image inspect ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} | grep 'Architecture'
           echo "${{ secrets.TONG_WEB_LICENSE_KEY }}" > ./tongweb/license.dat
           docker run --platform arm64 --rm -v ./tongweb/license.dat:/tongweb/license.dat ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} /bin/sh -c "java -version && arch && sh ~/tongweb/bin/version.sh"
