@@ -61,17 +61,17 @@ ENV PATH=$PATH:$JAVA_BIN
 ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Create User
-ARG RUN_USER=xf
-RUN groupadd -r ${RUN_USER} --gid 800 && \
-  useradd -r --gid ${RUN_USER} --uid 800 --shell /bin/bash ${RUN_USER} && \
-  mkdir -vp /home/${RUN_USER}/tongweb && \
-  chown -R ${RUN_USER}:${RUN_USER} /home/${RUN_USER}
+ARG RUN_USER=tongweb
+RUN groupadd --system --gid 102 ${RUN_USER} && \
+    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 102 --shell /bin/false ${RUN_USER} && \
+    mkdir -vp /tongweb && \
+    chown -R ${RUN_USER}:${RUN_USER} /tongweb
 
 # change User
 USER ${RUN_USER}
 
 # Install Tongweb
-WORKDIR /home/${RUN_USER}/
+WORKDIR /tongweb
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN wget --quiet \
       --no-check-certificate \
@@ -82,7 +82,7 @@ RUN wget --quiet \
     touch ./tongweb/license.dat
 
 # Run Tongweb
-ENV TONGWEB_HOME=/home/${RUN_USER}/tongweb
+ENV TONGWEB_HOME=/tongweb
 ENV TONGWEB_VERSION=7.0.4.3
 
 WORKDIR ${TONGWEB_HOME}
