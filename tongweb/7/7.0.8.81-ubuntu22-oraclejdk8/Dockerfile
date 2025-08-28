@@ -62,7 +62,7 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 # Install Tongweb
 ENV TONGWEB_HOME=/tongweb
-ENV TONGWEB_VERSION=7.0.4.3
+ENV TONGWEB_VERSION=7.0.8.81
 ARG RUN_USER=tongweb
 RUN groupadd --system --gid 1001 ${RUN_USER} && \
     useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 1001 --shell /bin/false ${RUN_USER} && \
@@ -77,10 +77,11 @@ WORKDIR ${TONGWEB_HOME}
 COPY --chown=${RUN_USER}:${RUN_USER} ./tongweb/7/install ./install
 RUN wget --quiet \
       --no-check-certificate \
-      -O ./install/TongWeb_Enter_Linux.tar.gz \
-      "https://www.dropbox.com/scl/fi/qg4oegiup8m4d3d09yik5/TongWeb7.0.8.81.tar.gz?rlkey=7hfqq75i5c7o6jucq6dy13id2&st=lkzge7fv&dl=0" && \
-    tar -zxf ./install/TongWeb_Enter_Linux.tar.gz -C ${TONGWEB_HOME} --no-same-owner && \
-    rm -fv ./install/TongWeb_Enter_Linux.tar.gz && \
+      -O ./install/TongWeb.tar.gz \
+      "https://www.dropbox.com/scl/fi/7ozfe0xuckth35yqn0ln0/TongWeb7.0.8.81.tar.gz?rlkey=lkpneronvawvgems6wmy5j7ir&st=xg4yew6m&dl=0" && \
+    tar -zxvf ./install/TongWeb.tar.gz -C ${TONGWEB_HOME} --no-same-owner && \
+    mv TongWeb7.0.8.81/* ${TONGWEB_HOME}/ && \
+    rm -fv ./install/TongWeb.tar.gz ./install/TongWeb7.0.8.81 && \
     touch ${TONGWEB_HOME}/license.dat
 
 EXPOSE 8088/tcp
