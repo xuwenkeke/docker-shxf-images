@@ -80,8 +80,9 @@ RUN wget --quiet \
       -O ./install/TongWeb.tar.gz \
       "https://www.dropbox.com/scl/fi/7ozfe0xuckth35yqn0ln0/TongWeb7.0.8.81.tar.gz?rlkey=lkpneronvawvgems6wmy5j7ir&st=xg4yew6m&dl=0" && \
     tar -zxvf ./install/TongWeb.tar.gz -C ./install --no-same-owner && \
-    mv -v ./install/TongWeb7.0.8.81/{bin,domains,lib} ${TONGWEB_HOME}/ && \
+    mv -v ./install/TongWeb7.0.8.81/* ${TONGWEB_HOME}/ && \
     rm -rfv ./install/TongWeb* && \
+    rm -rfv ./version*.zip && \
     touch ${TONGWEB_HOME}/license.dat
 
 EXPOSE 8088/tcp
