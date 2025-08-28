@@ -1,6 +1,6 @@
 # Doc: https://docs.github.com/zh/actions/get-started/quickstart
 
-name: TongWeb7 (jdk8-oraclejdk-ubuntu22)
+name: TongWeb7 (7.0.8.81-ubuntu22-oraclejdk8)
 
 on:
   push:
