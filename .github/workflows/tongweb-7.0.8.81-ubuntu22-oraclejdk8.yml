@@ -6,14 +6,14 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'tongweb/7/jdk8-oraclejdk-ubuntu22/Dockerfile'
-      - '.github/workflows/tongweb7-ubuntu22.yml'
+      - 'tongweb/7/7.0.8.81-ubuntu22-oraclejdk8/Dockerfile'
+      - '.github/workflows/tongweb-7.0.8.81-ubuntu22-oraclejdk8.yml'
 
 env:
-  DOCKER_FILE: 'tongweb/7/jdk8-oraclejdk-ubuntu22/Dockerfile'
+  DOCKER_FILE: 'tongweb/7/7.0.8.81-ubuntu22-oraclejdk8/Dockerfile'
   DOCKER_HUB_REPOSITORY: 'xuwenkeke/tongweb'
   DOCKER_HUB_TEST_TAG: '7-test'
-  DOCKER_HUB_TAG: '7.0.4.3-ubuntu22-oraclejdk8'
+  DOCKER_HUB_TAG: '7.0.8.81-ubuntu22-oraclejdk8'
 
 jobs:
   build_image:

@@ -4,8 +4,8 @@ name: TongWeb7 (jdk8-oraclejdk-centos8)
 #   push:
 #     branches: [ main ]
 #     paths:
-#       - 'tongweb/7/Dockerfile'
-#       - '.github/workflows/tongweb7-centos8_arm64v8.yml'
+#       - 'tongweb/7/7.0.4.3-oraclejdk8-centos8/Dockerfile'
+#       - '.github/workflows/tongweb-7.0.4.3-centos8.3-oraclejdk8.yml'
 
 env:
   DOCKER_HUB_REPOSITORY: 'xuwenkeke/tongweb'
