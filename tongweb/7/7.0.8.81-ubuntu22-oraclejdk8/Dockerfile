@@ -82,7 +82,6 @@ RUN wget --quiet \
     tar -zxvf ./install/TongWeb.tar.gz -C ./install --no-same-owner && \
     mv -v ./install/TongWeb7.0.8.81/* ${TONGWEB_HOME}/ && \
     rm -rfv ./install/TongWeb* && \
-    rm -rfv ./version*.zip && \
     touch ${TONGWEB_HOME}/license.dat
 
 EXPOSE 8088/tcp
