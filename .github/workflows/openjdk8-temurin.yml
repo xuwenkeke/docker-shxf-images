@@ -54,7 +54,7 @@ jobs:
         name: Test OpenJDK image
         run: |
           docker image inspect ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} | grep 'Architecture'
-          docker run --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} --entrypoint "java -version && arch"
+          docker run --rm ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} --entrypoint sh -c "java -version && arch"
 
       - name: Build and push
         uses: docker/build-push-action@v6
