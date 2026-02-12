@@ -6,14 +6,20 @@ This repository manages Docker images for various services (including TongWeb7, 
 
 # Docker Image
 
-## [TongWeb7](https://hub.docker.com/r/xuwenkeke/tongweb) ![Docker Pulls](https://img.shields.io/docker/pulls/xuwenkeke/tongweb)
+## [TongWeb](https://hub.docker.com/r/xuwenkeke/tongweb) ![Docker Pulls](https://img.shields.io/docker/pulls/xuwenkeke/tongweb)
 Supported architectures `linux/amd64`、`linux/arm64`
 
-| Image    | Tag      | Build Status | Image Size |
-| :-------: | :------: | :----------: | :-------: |
-| TongWeb7  | 7.0.8.81-ubuntu22-oraclejdk8 | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/tongweb-7.0.8.81-ubuntu22-oraclejdk8.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/tongweb/7.0.8.81-ubuntu22-oraclejdk8)  |
-| TongWeb7   | 7.0.4.3-ubuntu22-oraclejdk8 | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/tongweb-7.0.4.3-ubuntu22-oraclejdk8.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/tongweb/7.0.4.3-ubuntu22-oraclejdk8)  |
+| Tag      | Build Status | Image Size |
+| :------: | :----------: | :-------: |
+| 7.0.8.81-ubuntu22-oraclejdk8 | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/tongweb-7.0.8.81-ubuntu22-oraclejdk8.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/tongweb/7.0.8.81-ubuntu22-oraclejdk8)  |
+| 7.0.4.3-ubuntu22-oraclejdk8 | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/tongweb-7.0.4.3-ubuntu22-oraclejdk8.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/tongweb/7.0.4.3-ubuntu22-oraclejdk8)  |
 
+## [OpenJDK](https://hub.docker.com/r/xuwenkeke/openjdk) ![Docker Pulls](https://img.shields.io/docker/pulls/xuwenkeke/openjdk)
+Supported architectures `linux/amd64`、`linux/arm64`
+
+| Tag      | Build Status | Image Size | Descption |
+| :------: | :----------: | :-------: | :---------: |
+| jdk8-temurin-noble | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/openjdk8-temurin.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/openjdk/jdk8-temurin-noble)  | built on  [eclipse-temurin:8u482-b08-jdk-noble](https://hub.docker.com/_/eclipse-temurin/tags?name=8u482-b08-jdk-noble) base image
 
 
 
