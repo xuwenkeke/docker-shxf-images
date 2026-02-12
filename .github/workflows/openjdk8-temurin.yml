@@ -1,4 +1,4 @@
-name: OpenJDK8
+name: OpenJDK8 (Temurin)
 
 on:
   push:
