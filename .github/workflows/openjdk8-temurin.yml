@@ -1,0 +1,69 @@
+name: OpenJDK8
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'openjdk/eclipse-temurin/Dockerfile'
+      - '.github/workflows/openjdk8-temurin.yml'
+
+env:
+  DOCKER_FILE: 'openjdk/eclipse-temurin/Dockerfile'
+  DOCKER_HUB_REPOSITORY: 'xuwenkeke/tongweb'
+  DOCKER_HUB_TEST_TAG: '8-test'
+  DOCKER_HUB_TAG: xuwenkeke/openjdk:jdk8-temurin-noble
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v5
+
+      # # Add support for more platforms with QEMU (optional)
+      #   # https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # Set up BuildKit Docker container builder to be able to build
+      # multi-platform images and export cache
+      # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      # Log in to Docker Hub
+      # https://github.com/docker/login-action
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3.5.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build and Test image
+      # https://github.com/docker/build-push-action
+      - name: Build and Test image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./${{ env.DOCKER_FILE }}
+          load: true # Exports the image to the Docker daemon
+          platforms: linux/arm64/v8
+          tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }}
+      -
+        name: Test OpenJDK image
+        run: |
+          docker image inspect ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TEST_TAG }} | grep 'Architecture'
+          docker run --rm --entrypoint="env" ${{ env.DOCKER_HUB_TAG }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        id: build
+        with:
+          context: .
+          file: ./${{ env.DOCKER_FILE }}
+          push: true
+          platforms: linux/amd64,linux/arm64/v8
+          tags: ${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.DOCKER_HUB_TAG }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
