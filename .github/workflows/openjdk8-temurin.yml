@@ -9,9 +9,9 @@ on:
 
 env:
   DOCKER_FILE: 'openjdk/eclipse-temurin/Dockerfile'
-  DOCKER_HUB_REPOSITORY: 'xuwenkeke/tongweb'
+  DOCKER_HUB_REPOSITORY: 'xuwenkeke/openjdk'
   DOCKER_HUB_TEST_TAG: '8-test'
-  DOCKER_HUB_TAG: xuwenkeke/openjdk:jdk8-temurin-noble
+  DOCKER_HUB_TAG: jdk8-temurin-noble
 
 jobs:
   build:
