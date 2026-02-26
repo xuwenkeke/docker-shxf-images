@@ -19,7 +19,8 @@ Supported architectures `linux/amd64`、`linux/arm64`
 
 | Tag      | Build Status | Image Size | Descption |
 | :------: | :----------: | :-------: | :---------: |
-| jdk8-temurin-noble | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/openjdk8-temurin.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/openjdk/jdk8-temurin-noble)  | built on  [eclipse-temurin:8u482-b08-jdk-noble](https://hub.docker.com/_/eclipse-temurin/tags?name=8u482-b08-jdk-noble) base image
+| jdk8-temurin-noble | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/openjdk8-temurin.yml)  |  ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/openjdk/jdk8-temurin-noble)  | built on  [eclipse-temurin:8u482-b08-jdk-noble](https://hub.docker.com/_/eclipse-temurin/tags?name=8u482-b08-jdk-noble) base image|
+| 8-jdk-buster | ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xuwenkeke/docker-shxf-images/openjdk8.yml) | ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xuwenkeke/openjdk/8-jdk-buster) | OpenJDK 1.8.0_302 (The image is **deprecated**) |
 
 
 
