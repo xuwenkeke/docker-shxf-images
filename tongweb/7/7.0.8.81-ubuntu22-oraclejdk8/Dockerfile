@@ -63,9 +63,12 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 # Install Tongweb
 ENV TONGWEB_HOME=/tongweb
 ENV TONGWEB_VERSION=7.0.8.81
+
 ARG RUN_USER=tongweb
-RUN groupadd --system --gid 1001 ${RUN_USER} && \
-    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 1001 --shell /bin/false ${RUN_USER} && \
+# 不指定固定 gid/uid，允许运行时通过 docker-compose user 字段覆盖
+# 示例: user: "800:800" 或 user: "1000:1000"
+RUN groupadd --system ${RUN_USER} && \
+    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --shell /bin/false ${RUN_USER} && \
     mkdir -vp ${TONGWEB_HOME} && \
     chown -R ${RUN_USER}:${RUN_USER} ${TONGWEB_HOME}
 
