@@ -64,8 +64,8 @@ ENV CLASSPATH=$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 ENV TONGWEB_HOME=/tongweb
 ENV TONGWEB_VERSION=7.0.8.81
 ARG RUN_USER=tongweb
-RUN groupadd --system --gid 1001 ${RUN_USER} && \
-    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 1001 --shell /bin/false ${RUN_USER} && \
+RUN groupadd --system --gid 1050 ${RUN_USER} && \
+    useradd --system --gid ${RUN_USER} --no-create-home --home /nonexistent --comment "tongweb user" --uid 1050 --shell /bin/false ${RUN_USER} && \
     mkdir -vp ${TONGWEB_HOME} && \
     chown -R ${RUN_USER}:${RUN_USER} ${TONGWEB_HOME}
 
